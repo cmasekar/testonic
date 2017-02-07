@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-//import { OrderPage } from '../../pages/order/order';
-import { NavController } from 'ionic-angular';
+import { OrderPage } from '../../pages/order/order';
+import { NavController, Platform } from 'ionic-angular';
 
 @Component({
   selector: 'page-home',
@@ -8,7 +8,10 @@ import { NavController } from 'ionic-angular';
 })
 export class HomePage {
   orderPage;
-  constructor(public navCtrl: NavController) {
-   //this.orderPage = OrderPage;
+  isIOS() {
+    return this.plt.is("ios");
+  }
+  constructor(public navCtrl: NavController, public plt: Platform) {
+   this.orderPage = OrderPage;
   }
 }

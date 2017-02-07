@@ -1,11 +1,11 @@
-<ion-content>
-  <div class="orange-banner"></div>
-<div class="teal-banner"></div>
-<div class="orange-alt-banner"></div>
-<div class="teal-banner"></div>
-</ion-content>
+<ion-header [ngClass]="{'header-padding': isIOS() }">
+  <ion-navbar>
+    <ion-title>Home</ion-title>
+  </ion-navbar>
+</ion-header>
+
 <ion-content padding class="no-scroll">
   <!--<img src="./build/images/CondadoLogo.png"/>-->
-  <!--<img src="../../assets/images/CondadoLogo.png"/>-->
+  <img src="../../assets/images/CondadoLogo.png"/>
   <button ion-button block [navPush]='orderPage'>Let's make tacos!</button>
 </ion-content>

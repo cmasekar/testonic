@@ -1,0 +1,144 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>My Order</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="previewCart()">
+        Total: {{ numberOfTacos * costOfOneTaco + tacoService.getCartCost() | currency : "USD" :2}}
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <ion-list>
+    <ion-list-header>
+      Tortilla
+    </ion-list-header>
+    <ion-item-group>
+      <ion-item text-wrap *ngFor="let tortilla of tortillaChoice">
+        <ion-label>
+          <h2>
+            {{tortilla.name}}
+          </h2>
+          <p>{{tortilla.info}}</p>
+        </ion-label>
+        <ion-checkbox [disabled]="checkFor1Tortilla(tortilla.value)" [checked]="tortilla.isSelected"
+        [(ngModel)]="tortilla.isSelected" (click)="recalculate()"></ion-checkbox>
+      </ion-item>
+      <ion-item *ngIf="tortillaChoice[tortillaChoice.length-1].isSelected">
+        <ion-label>Add Rice (+1)</ion-label>
+        <ion-checkbox [checked]="tfRiceIsChecked" [(ngModel)]="tfRiceIsChecked" (click)="recalculate()"></ion-checkbox>
+      </ion-item>
+      <ion-item *ngIf="tortillaChoice[tortillaChoice.length-1].isSelected">
+        <ion-label>Add Black Beans (+1)</ion-label>
+        <ion-checkbox [checked]="tfBeansIsChecked" [(ngModel)]="tfBeansIsChecked" (click)="recalculate()"></ion-checkbox>
+      </ion-item>
+    </ion-item-group>
+  </ion-list>
+
+  <ion-list>
+    <ion-list-header>
+      Protein
+    </ion-list-header>
+    <ion-item-divider>
+      <p>Choose 1 or add $2 for double meat</p>
+    </ion-item-divider>
+    <ion-item-group>
+      <ion-item text-wrap *ngFor="let protein of proteinChoice">
+        <ion-label>
+          <h2>
+            {{protein.name}}
+          </h2>
+          <p>{{protein.info}}</p>
+        </ion-label>
+        <ion-checkbox [disabled]="checkFor2Protein(protein.value)" [checked]="protein.isSelected" 
+                      [(ngModel)]="protein.isSelected" (click)="recalculate()"></ion-checkbox>
+      </ion-item>
+    </ion-item-group>
+  </ion-list>
+
+  <ion-list>
+    <ion-list-header>
+      Toppings
+    </ion-list-header>
+    <ion-item-group>
+      <ion-item text-wrap *ngFor="let toppingItem of toppingChoice">
+        <ion-label>
+          <h2>
+            <ion-icon text-left icon-only name="flame" color="{{setFlameColor(toppingItem.spicy)}}" *ngIf="toppingItem.spicy > 0"></ion-icon>
+            {{toppingItem.name}}
+          </h2>
+          <p>{{toppingItem.info}}</p>
+        </ion-label>
+        <ion-checkbox [checked]="toppingItem.isSelected" [(ngModel)]="toppingItem.isSelected"></ion-checkbox>
+      </ion-item>
+    </ion-item-group>
+  </ion-list>
+
+  <ion-list>
+    <ion-list-header>
+      Cheese
+    </ion-list-header>
+    <ion-item-group>
+      <ion-item text-wrap *ngFor="let cheeseItem of cheeseChoice">
+        <ion-label>
+          <h2>
+            <ion-icon text-left icon-only name="flame" color="{{setFlameColor(cheeseItem.spicy)}}" *ngIf="cheeseItem.spicy > 0"></ion-icon>
+            {{cheeseItem.name}}
+          </h2>
+          <p>{{cheeseItem.info}}</p>
+        </ion-label>
+        <ion-checkbox [checked]="cheeseItem.isSelected" [(ngModel)]="cheeseItem.isSelected"></ion-checkbox>
+      </ion-item>
+    </ion-item-group>
+  </ion-list>
+
+  <ion-list>
+    <ion-list-header>
+      Salsa
+    </ion-list-header>
+    <ion-item-group>
+      <ion-item text-wrap *ngFor="let salsaItem of salsaChoice">
+        <ion-label>
+          <h2>
+            <ion-icon text-left icon-only name="flame" color="{{setFlameColor(salsaItem.spicy)}}" *ngIf="salsaItem.spicy > 0"></ion-icon>
+            {{salsaItem.name}}
+          </h2>
+          <p>{{salsaItem.info}}</p>
+        </ion-label>
+        <ion-checkbox [checked]="salsaItem.isSelected" [(ngModel)]="salsaItem.isSelected"></ion-checkbox>
+      </ion-item>
+    </ion-item-group>
+  </ion-list>
+
+  <ion-list>
+    <ion-list-header>
+      Sauces
+    </ion-list-header>
+    <ion-item-group>
+      <ion-item text-wrap *ngFor="let sauceItem of sauceChoice">
+        <ion-label>
+          <h2>
+            <ion-icon text-left icon-only name="flame" color="{{setFlameColor(sauceItem.spicy)}}" *ngIf="sauceItem.spicy > 0"></ion-icon>
+            {{sauceItem.name}}
+          </h2>
+          <p>{{sauceItem.info}}</p>
+        </ion-label>
+        <ion-checkbox [checked]="sauceItem.isSelected" [(ngModel)]="sauceItem.isSelected"></ion-checkbox>
+      </ion-item>
+    </ion-item-group>
+  </ion-list>
+  <ion-item><h2>How many tacos?</h2></ion-item>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col width-33 text-right>
+        <button ion-button icon-left icon-only (click)="changeTacoNumber(-1)"><ion-icon name="arrow-down"></ion-icon></button>
+      </ion-col>
+      <ion-col width-33><ion-input id="number-of-tacos-input" type="number" [(ngModel)]="numberOfTacos" min=1 disabled text-center></ion-input></ion-col>
+      <ion-col width-33 text-left>
+        <button ion-button icon-right icon-only (click)="changeTacoNumber(1)"><ion-icon name="arrow-up"></ion-icon></button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <button ion-button block (click)="addTacoToCart()">Go to: Extras</button>
+</ion-content>

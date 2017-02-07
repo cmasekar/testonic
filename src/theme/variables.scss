@@ -90,6 +90,7 @@ $item-wp-font-size: 1.3rem;
 $item-md-padding-media-top: 9px;
 $item-md-padding-media-bottom: 9px;
 $checkbox-md-item-left-margin: $item-md-padding-media-top 12px $item-md-padding-media-bottom 4px;
+$cordova-ios-statusbar-padding: 20px;
 
 .no-scroll .scroll-content{
   overflow: hidden;
@@ -108,4 +109,14 @@ $checkbox-md-item-left-margin: $item-md-padding-media-top 12px $item-md-padding-
   background-color: color($colors, condado-orange-alt);
   height: 110px;
   width: initial;
+}
+
+#number-of-tacos-input {
+  padding: inherit;
+  font-size: 2rem;
+  margin: 10px 0;
+}
+
+.header-padding {
+  padding-top: $cordova-ios-statusbar-padding;
 }

@@ -2,11 +2,19 @@ import { NgModule, ErrorHandler, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
+import { OrderPage } from '../pages/order/order';
+import { ExtrasPage } from '../pages/extras/extras'
+import { MyCart } from '../pages/mycart/mycart';
+
+import { TacoService } from '../services/cart.service';
 
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    HomePage,
+    OrderPage,
+    ExtrasPage,
+    MyCart
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
@@ -15,8 +23,11 @@ import { HomePage } from '../pages/home/home';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
+    HomePage,
+    OrderPage,
+    ExtrasPage,
+    MyCart
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
+  providers: [TacoService, {provide: ErrorHandler, useClass: IonicErrorHandler}]
 })
 export class AppModule {}
