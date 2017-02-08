@@ -2,11 +2,28 @@
   <ion-navbar>
     <ion-title>Extras</ion-title>
     <ion-buttons end>
-      <button ion-button>
-        Total: {{ tacoTotal | currency : "USD" :2}}
+      <button ion-button icon-only (click)="previewCart()">
+        <ion-icon name="basket"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
 <ion-content padding>
+  <ion-list>
+    <ion-list-header>
+      Extras
+    </ion-list-header>
+    <ion-item-group>
+      <ion-item text-wrap *ngFor="let option of extraOptions">
+        <ion-label>
+          <h2>
+            <ion-icon text-left icon-only name="flame" color="{{setFlameColor(option.spicy)}}" *ngIf="option.spicy > 0"></ion-icon>
+            {{option.name}}
+          </h2>
+        </ion-label>
+        <ion-checkbox [checked]="option.isSelected" [(ngModel)]="option.isSelected"></ion-checkbox>
+      </ion-item>
+    </ion-item-group>
+  </ion-list>
+  <button ion-button block (click)="goToCheckout()">Checkout</button>
 </ion-content>

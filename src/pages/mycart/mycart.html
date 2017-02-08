@@ -6,7 +6,14 @@
     <ion-buttons start>
       <button ion-button (click)="dismiss()">
         <span ion-text color="primary" showWhen="ios">Cancel</span>
-        <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-buttons end>
+      <button ion-button disabled color="dark">
+        <span ion-text>Total: {{ tacoService.getCartCost() | currency : "USD" :2}}</span>
+      </button>
+      <button ion-button showWhen="android,windows" (click)="dismiss()">
+        <ion-icon name="md-close"></ion-icon>
       </button>
     </ion-buttons>
   </ion-toolbar>
@@ -18,16 +25,23 @@
         <ion-icon name="information-circle"></ion-icon>
       </button>
       <ion-thumbnail item-left>
-        <img src="img/thumbnail-totoro.png">
+        <img src="../../assets/images/TacoIcon.png">
+        <ion-item text-center>{{taco.cost * taco.quantity | currency : "USD" :2}}</ion-item>
       </ion-thumbnail>
       <h2>{{taco.tortilla}}</h2>
       <p *ngIf="taco.tortilla == 'Tortilla Fritos'">
+        <span *ngIf="taco.tortillaOptions.rice">Rice, </span>
+        <span *ngIf="!taco.tortillaOptions.rice">No rice, </span>
+        <span *ngIf="taco.tortillaOptions.beans">beans</span>
+        <span *ngIf="!taco.tortillaOptions.beans">no beans</span>
       </p>
-      <p>{{taco.protein}}</p>
-      <p>{{taco.toppings}}</p>
-      <p>{{taco.cheese}}</p>
-      <p>{{taco.salsa}}</p>
-      <p>{{taco.sauces}}</p>
+      <p>{{taco.protein.join(', ')}}</p>
+      <p>{{taco.toppings.join(', ')}}</p>
+      <p>{{taco.cheese.join(', ')}}</p>
+      <p>{{taco.salsa.join(', ')}}</p>
+      <p>{{taco.sauces.join(', ')}}</p>
+      <br>
+      <p>{{ taco.cost | currency : "USD" :2}} x {{taco.quantity}} taco(s)</p>
     </ion-item>
     <ion-item text-center *ngIf="cart.length == 0">
       There aren't any tacos in your cart!

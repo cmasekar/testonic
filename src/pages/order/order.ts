@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { AlertController, NavController, ModalController } from 'ionic-angular';
-import { ExtrasPage } from '../../pages/extras/extras';
+import { AlertController, NavController, ModalController, PopoverController } from 'ionic-angular';
 import { MyCart } from '../../pages/mycart/mycart';
+import { TacoMade } from '../../pages/tacomade/tacomade';
 
 import { Taco } from '../../models/taco';
 import { TacoService } from '../../services/cart.service';
@@ -344,13 +344,8 @@ export class OrderPage {
     }
   }
 
-  goToTacoSummary() {
-    this.navCtrl.push(ExtrasPage);
-  }
-
   previewCart() {
-    let tacos = this.tacoService.getTacos();
-    let modal = this.modalCtrl.create(MyCart, tacos);
+    let modal = this.modalCtrl.create(MyCart, this.tacoService.getTacos());
     modal.present();
   }
 
@@ -489,6 +484,7 @@ export class OrderPage {
       buttons: ['Close']
     });
     alert.present();
+    this.navCtrl.setRoot(TacoMade);
   }
 
   constructor(private alertControl: AlertController, public navCtrl: NavController, 

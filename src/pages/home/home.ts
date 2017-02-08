@@ -7,11 +7,14 @@ import { NavController, Platform } from 'ionic-angular';
   templateUrl: 'home.html'
 })
 export class HomePage {
-  orderPage;
   isIOS() {
     return this.plt.is("ios");
   }
+  
+  goToTaco() {
+    this.navCtrl.setRoot(OrderPage)
+  }
+
   constructor(public navCtrl: NavController, public plt: Platform) {
-   this.orderPage = OrderPage;
   }
 }

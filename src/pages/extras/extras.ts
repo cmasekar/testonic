@@ -1,48 +1,92 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, ModalController } from 'ionic-angular';
+import { TacoService } from '../../services/cart.service';
+import { CheckoutSummary } from '../../pages/checkoutsummary/checkoutsummary';
+import { MyCart } from '../../pages/mycart/mycart';
 
 @Component({
   selector: 'extras',
   templateUrl: 'extras.html'
 })
 export class ExtrasPage {
-  tacoTotal;
 
-extraOptions = 
-  [
+  extraOptions = [
     {
-      name: "Rice",
+      name: "Rice (+1)",
       cost: 1,
-      spicy: 0
+      spicy: 0,
+      value: "rice",
+      displayName: "Rice",
+      isSelected: false
     },
     {
-      name: "Pickled Jalapenos",
+      name: "Pickled Jalapenos (+1)",
       cost: 1,
-      spicy: 0
+      spicy: 0,
+      value: "pickled-jalapenos",
+      displayName: "Pickled Jalapenos",
+      isSelected: false
     },
     {
-      name: "Sour Cream",
+      name: "Sour Cream (+1)",
       cost: 1,
-      spicy: 0
+      spicy: 0,
+      value: "sour-cream",
+      displayName: "Sour Cream",
+      isSelected: false
     },
     {
-      name: "Black Beans",
+      name: "Black Beans (+1.5)",
       cost: 1.5,
-      spicy: 0
+      spicy: 0,
+      value: "black-beans",
+      displayName: "Black Beans",
+      isSelected: false
     },
     {
-      name: "Traditional Guac",
+      name: "Traditional Guac (+2)",
       cost: 2,
-      spicy: 0
+      spicy: 0,
+      value: "traditional-guac",
+      displayName: "Traditional Guac",
+      isSelected: false
     },
     {
-      name: "Bacon Refried Beans",
+      name: "Bacon Refried Beans (+1.5)",
       cost: 1.5,
-      spicy: 1
+      spicy: 1,
+      value: "bacon-refried-beans",
+      displayName: "Bacon Refried Beans",
+      isSelected: false
     }
   ];
 
-  constructor(public navCtrl: NavController) {
+  setFlameColor(level: number) {
+    switch (level) {
+      case 1:
+        return "spicy-1";
+      case 2:
+        return "spicy-2";
+      case 3:
+        return "spicy-3";
+      case 4:
+        return "spicy-4";
+      case 5:
+        return "spicy-5";
+      default:
+        return "black";
+    }
+  }
+
+  goToCheckout() {
+    this.navCtrl.push(CheckoutSummary)
+  }
+
+  previewCart() {
+    let modal = this.modalCtrl.create(MyCart, this.tacoService.getTacos());
+    modal.present();
+  }
+  constructor(public navCtrl: NavController, public tacoService: TacoService, private modalCtrl: ModalController) {
       
   }
 }

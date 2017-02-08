@@ -95,26 +95,19 @@ $cordova-ios-statusbar-padding: 20px;
 .no-scroll .scroll-content{
   overflow: hidden;
 }
-.orange-banner{
-  background-color: color($colors, condado-orange);
-  height: 90px;
-  width: initial;
-}
-.teal-banner{
-  background-color: color($colors, condado-teal);
-  height: 30px;
-  width: initial;
-}
-.orange-alt-banner{
-  background-color: color($colors, condado-orange-alt);
-  height: 110px;
-  width: initial;
-}
 
 #number-of-tacos-input {
   padding: inherit;
-  font-size: 2rem;
+  font-size: 3rem;
   margin: 10px 0;
+  .text-input-ios {
+    width: 100%;
+  }
+}
+.test {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .header-padding {

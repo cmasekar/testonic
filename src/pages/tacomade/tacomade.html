@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>My Order</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="previewCart()">
+        <ion-icon name="basket"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-item>
+    <h1 text-center>
+      Nice!
+    </h1>
+    <p>
+      Would you like to add another taco or continue now?
+    </p>
+  </ion-item>
+  <ion-grid>
+    <ion-row>
+      <ion-col width-50>
+        <button ion-button block (click)="makeAnotherTaco()">Add Taco</button>
+      </ion-col>
+      <ion-col width-50>
+        <button ion-button block (click)="goToExtras()">Continue</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

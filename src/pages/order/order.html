@@ -2,8 +2,8 @@
   <ion-navbar>
     <ion-title>My Order</ion-title>
     <ion-buttons end>
-      <button ion-button (click)="previewCart()">
-        Total: {{ numberOfTacos * costOfOneTaco + tacoService.getCartCost() | currency : "USD" :2}}
+      <button ion-button icon-only (click)="previewCart()">
+        <ion-icon name="basket"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
@@ -131,14 +131,14 @@
 
   <ion-grid>
     <ion-row>
-      <ion-col width-33 text-right>
+      <ion-col width-33 class="test" text-right>
         <button ion-button icon-left icon-only (click)="changeTacoNumber(-1)"><ion-icon name="arrow-down"></ion-icon></button>
       </ion-col>
       <ion-col width-33><ion-input id="number-of-tacos-input" type="number" [(ngModel)]="numberOfTacos" min=1 disabled text-center></ion-input></ion-col>
-      <ion-col width-33 text-left>
+      <ion-col width-33 class="test" text-left>
         <button ion-button icon-right icon-only (click)="changeTacoNumber(1)"><ion-icon name="arrow-up"></ion-icon></button>
       </ion-col>
     </ion-row>
   </ion-grid>
-  <button ion-button block (click)="addTacoToCart()">Go to: Extras</button>
+  <button ion-button block (click)="addTacoToCart()">Add to cart</button>
 </ion-content>

@@ -26,6 +26,6 @@ export const TACOS: Taco[] = [
     salsa: ["Salsa Roja"],
     sauces: ["Ghost Pepper"],
     quantity: 2,
-    cost: 8
+    cost: 4
   }
 ];

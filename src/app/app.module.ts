@@ -5,6 +5,8 @@ import { HomePage } from '../pages/home/home';
 import { OrderPage } from '../pages/order/order';
 import { ExtrasPage } from '../pages/extras/extras'
 import { MyCart } from '../pages/mycart/mycart';
+import { TacoMade } from '../pages/tacomade/tacomade';
+import { CheckoutSummary } from '../pages/checkoutsummary/checkoutsummary';
 
 import { TacoService } from '../services/cart.service';
 
@@ -14,7 +16,9 @@ import { TacoService } from '../services/cart.service';
     HomePage,
     OrderPage,
     ExtrasPage,
-    MyCart
+    MyCart,
+    TacoMade,
+    CheckoutSummary
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
@@ -26,7 +30,9 @@ import { TacoService } from '../services/cart.service';
     HomePage,
     OrderPage,
     ExtrasPage,
-    MyCart
+    MyCart,
+    TacoMade,
+    CheckoutSummary
   ],
   providers: [TacoService, {provide: ErrorHandler, useClass: IonicErrorHandler}]
 })

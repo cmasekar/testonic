@@ -8,7 +8,7 @@ export class TacoService {
   getCartCost(): number {
     let total = 0;
     for(let taco of TACOS) {
-      total += taco.cost;
+      total += taco.cost * taco.quantity;
     }
     return total;
   }
