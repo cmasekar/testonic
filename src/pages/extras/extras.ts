@@ -3,6 +3,7 @@ import { NavController, ModalController } from 'ionic-angular';
 import { TacoService } from '../../services/cart.service';
 import { CheckoutSummary } from '../../pages/checkoutsummary/checkoutsummary';
 import { MyCart } from '../../pages/mycart/mycart';
+import { TacoMade } from '../../pages/tacomade/tacomade';
 
 @Component({
   selector: 'extras',
@@ -79,11 +80,18 @@ export class ExtrasPage {
   }
 
   goToCheckout() {
-    this.navCtrl.push(CheckoutSummary)
+    let selectedOptions = this.extraOptions.filter(o => o.isSelected);
+    this.navCtrl.push(CheckoutSummary, {selectedOptions: selectedOptions})
   }
 
   previewCart() {
     let modal = this.modalCtrl.create(MyCart, this.tacoService.getTacos());
+    modal.onDidDismiss(shouldGo => {
+            if(shouldGo) {
+                this.navCtrl.setRoot(TacoMade);
+                this.navCtrl.push(ExtrasPage);
+            }
+        })
     modal.present();
   }
   constructor(public navCtrl: NavController, public tacoService: TacoService, private modalCtrl: ModalController) {

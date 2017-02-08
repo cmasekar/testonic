@@ -9,11 +9,57 @@
 <ion-content padding>
   <ion-list>
     <ion-list-header>
-      Ionic 2 Accordion Example.
+      Tacos
     </ion-list-header>
-    <ion-item padding *ngFor="let d of data" (click)="toggleDetails(d)"><ion-icon color="primary" item-right [name]="d.icon"></ion-icon>
-      {{d.title}}
-      <div *ngIf="d.showDetails">{{d.details}}</div>
+    <ion-item *ngFor="let taco of tacos; let i = index" (click)="toggleDetails(taco)">
+      <ion-icon color="primary" item-right [name]="taco.icon"></ion-icon>
+      <h2>Taco {{i+1}}: {{taco.tortilla}}</h2>
+      <div *ngIf="taco.showDetails">
+        <p *ngIf="taco.tortilla == 'Tortilla Fritos'">
+          <span *ngIf="taco.tortillaOptions.rice">Rice, </span>
+          <span *ngIf="!taco.tortillaOptions.rice">No rice, </span>
+          <span *ngIf="taco.tortillaOptions.beans">beans</span>
+          <span *ngIf="!taco.tortillaOptions.beans">no beans</span>
+        </p>
+        <div *ngIf="taco.protein.length > 0">
+          <h5>Protein</h5>
+          <p *ngFor="let protein of taco.protein" padding-left>+ {{protein}}</p>
+        </div>
+        <div *ngIf="taco.toppings.length > 0">
+          <h5>Toppings</h5>
+          <p *ngFor="let topping of taco.toppings" padding-left>+ {{topping}}</p>
+        </div>
+        <div *ngIf="taco.cheese.length > 0">
+          <h5>Cheese</h5>
+          <p *ngFor="let cheese of taco.cheese" padding-left>+ {{cheese}}</p>
+        </div>
+        <div *ngIf="taco.salsa.length > 0">
+          <h5>Salsa</h5>
+          <p *ngFor="let salsa of taco.salsa" padding-left>+ {{salsa}}</p>
+        </div>
+        <div *ngIf="taco.sauces.length > 0">
+          <h5>Sauces</h5>
+          <p *ngFor="let sauce of taco.sauces" padding-left>+ {{sauce}}</p>
+        </div>
+        <br>
+        <p>{{ taco.cost | currency : "USD" :2}} x {{taco.quantity}} taco(s)</p>
+      </div>
+    </ion-item>
+    <ion-item text-center *ngIf="tacos.length == 0">
+      No tacos!
+    </ion-item>
+  </ion-list>
+  <ion-list>
+    <ion-list-header>
+      Extras
+    </ion-list-header>
+    <ion-item *ngFor="let extra of selectedExtras">
+      {{extra.displayName}}
+      <br>
+      <p>{{ extra.cost | currency : "USD" :2}}</p>
+    </ion-item>
+    <ion-item text-center *ngIf="selectedExtras.length == 0">
+      None
     </ion-item>
   </ion-list>
 </ion-content>

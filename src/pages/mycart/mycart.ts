@@ -13,13 +13,11 @@ export class MyCart {
     cart;
 
     dismiss() {
-        this.viewCtrl.dismiss();
+        this.viewCtrl.dismiss(false);
     }
 
     goToExtras() {
-        this.viewCtrl.dismiss();
-        this.navCtrl.setRoot(TacoMade);
-        this.navCtrl.push(ExtrasPage);
+        this.viewCtrl.dismiss(true);
     }
     
     showTacoOptions(index: number) {

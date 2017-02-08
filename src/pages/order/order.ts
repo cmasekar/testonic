@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AlertController, NavController, ModalController, PopoverController } from 'ionic-angular';
 import { MyCart } from '../../pages/mycart/mycart';
 import { TacoMade } from '../../pages/tacomade/tacomade';
+import { ExtrasPage } from '../../pages/extras/extras';
 
 import { Taco } from '../../models/taco';
 import { TacoService } from '../../services/cart.service';
@@ -346,6 +347,12 @@ export class OrderPage {
 
   previewCart() {
     let modal = this.modalCtrl.create(MyCart, this.tacoService.getTacos());
+    modal.onDidDismiss(shouldGo => {
+            if(shouldGo) {
+                this.navCtrl.setRoot(TacoMade);
+                this.navCtrl.push(ExtrasPage);
+            }
+        })
     modal.present();
   }
 

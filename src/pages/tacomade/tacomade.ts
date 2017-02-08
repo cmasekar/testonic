@@ -12,6 +12,12 @@ import { ExtrasPage } from '../../pages/extras/extras';
 export class TacoMade {
     previewCart() {
         let modal = this.modalCtrl.create(MyCart, this.tacoService.getTacos());
+        modal.onDidDismiss(shouldGo => {
+            if(shouldGo) {
+                this.navCtrl.setRoot(TacoMade);
+                this.navCtrl.push(ExtrasPage);
+            }
+        })
         modal.present();
     }
 
@@ -20,7 +26,7 @@ export class TacoMade {
     }
 
     goToExtras() {
-        this.navCtrl.push(ExtrasPage);
+        this.navCtrl.setRoot(ExtrasPage);
     }
 
     constructor(private tacoService: TacoService, public navCtrl: NavController,
