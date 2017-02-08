@@ -19,14 +19,16 @@
   </ion-toolbar>
 </ion-header>
 <ion-content padding>
+  <button ion-button block color="light" (click)="goToExtras()">Go to extras</button>
   <ion-list>
     <ion-item *ngFor="let taco of cart; let i = index">
       <button ion-button icon-only icon-right item-right clear (click)="showTacoOptions(i)">
         <ion-icon name="information-circle"></ion-icon>
       </button>
-      <ion-thumbnail item-left>
-        <img src="../../assets/images/TacoIcon.png">
-        <ion-item text-center>{{taco.cost * taco.quantity | currency : "USD" :2}}</ion-item>
+      <ion-thumbnail item-left text-center>
+        <img src="./build/images/TacoIcon.png"/>
+        <!--<img src="../../assets/images/TacoIcon.png">-->
+        <p text-center padding-top>{{taco.cost * taco.quantity | currency : "USD" :2}}</p>
       </ion-thumbnail>
       <h2>{{taco.tortilla}}</h2>
       <p *ngIf="taco.tortilla == 'Tortilla Fritos'">

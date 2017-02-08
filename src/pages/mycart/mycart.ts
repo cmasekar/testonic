@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
-import { ViewController, NavParams, ActionSheetController } from 'ionic-angular';
+import { ViewController, NavParams, ActionSheetController, NavController } from 'ionic-angular';
 import { TacoService } from '../../services/cart.service';
+import { TacoMade } from '../../pages/tacomade/tacomade';
+import { ExtrasPage } from '../../pages/extras/extras';
+
 
 @Component({
   selector: 'mycart',
@@ -11,6 +14,12 @@ export class MyCart {
 
     dismiss() {
         this.viewCtrl.dismiss();
+    }
+
+    goToExtras() {
+        this.viewCtrl.dismiss();
+        this.navCtrl.setRoot(TacoMade);
+        this.navCtrl.push(ExtrasPage);
     }
     
     showTacoOptions(index: number) {
@@ -48,7 +57,7 @@ export class MyCart {
         this.cart = this.tacoService.getTacos();
     }
     constructor(params: NavParams, public viewCtrl: ViewController, private tacoService: TacoService,
-                public actionSheetCtrl: ActionSheetController) {
+                public actionSheetCtrl: ActionSheetController, public navCtrl: NavController) {
         this.cart = params.data;
     }
 }
