@@ -55,6 +55,7 @@ export class CheckoutSummary {
   }
 
   goToFinish() {
+    this.tacoService.removeAllTacos();
     let alert = this.alertControl.create({
       title: 'Congratulations!',
       subTitle: "Your tacos are on their way to becoming reality",
