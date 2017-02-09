@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AlertController, NavController, ModalController, PopoverController } from 'ionic-angular';
+import { AlertController, NavController, ModalController } from 'ionic-angular';
 import { MyCart } from '../../pages/mycart/mycart';
 import { TacoMade } from '../../pages/tacomade/tacomade';
 import { ExtrasPage } from '../../pages/extras/extras';

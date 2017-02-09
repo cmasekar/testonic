@@ -13,7 +13,11 @@
     </ion-list-header>
     <ion-item *ngFor="let taco of tacos; let i = index" (click)="toggleDetails(taco)">
       <ion-icon color="primary" item-right [name]="taco.icon"></ion-icon>
-      <h2>Taco {{i+1}}: {{taco.tortilla}}</h2>
+      <div>
+        <h2>Taco {{i+1}}: {{taco.tortilla}}</h2>
+        <div *ngIf="taco.discount" item-right>{{ taco.cost * taco.quantity - taco.discount.amount | currency : "USD" :2}}</div>
+        <div *ngIf="!taco.discount" item-right>{{ taco.cost * taco.quantity | currency : "USD" :2}}</div>
+      </div>
       <div *ngIf="taco.showDetails">
         <p *ngIf="taco.tortilla == 'Tortilla Fritos'">
           <span *ngIf="taco.tortillaOptions.rice">Rice, </span>
@@ -43,6 +47,10 @@
         </div>
         <br>
         <p>{{ taco.cost | currency : "USD" :2}} x {{taco.quantity}} taco(s)</p>
+        <div *ngIf="taco.discount">
+          <h5>Discounts</h5>
+          <p padding-left>- {{taco.discount.amount | currency : "USD" :2}}: {{taco.discount.description}}</p>
+        </div>
       </div>
     </ion-item>
     <ion-item text-center *ngIf="tacos.length == 0">
@@ -62,4 +70,55 @@
       None
     </ion-item>
   </ion-list>
+  <ion-grid>
+    <ion-row>
+      <ion-col width-66>
+        Cost of tacos:
+      </ion-col>
+      <ion-col text-left width-33>
+        {{tacoService.getCartCost() | currency : "USD" :2}}
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col width-66>
+        Cost of extras:
+      </ion-col>
+      <ion-col text-left width-33>
+        {{costOfExtras | currency : "USD" :2}}
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="discounts > 0">
+      <ion-col width-66>
+        Discounts:
+      </ion-col>
+      <ion-col text-left width-33>
+        - {{discounts | currency : "USD" :2}}
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col width-66>
+        Subtotal:
+      </ion-col>
+      <ion-col text-left width-33>
+        {{tacoService.getCartCost() + costOfExtras - discounts | currency : "USD" :2}}
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col width-66>
+        Tax:
+      </ion-col>
+      <ion-col text-left width-33>
+        {{(tacoService.getCartCost() + costOfExtras - discounts) * 0.065 | currency : "USD" :2}}
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col width-66>
+        Total:
+      </ion-col>
+      <ion-col text-left width-33>
+        {{(tacoService.getCartCost() + costOfExtras - discounts) * 1.065 | currency : "USD" :2}}
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <button ion-button block (click)="goToFinish()">Submit order</button>
 </ion-content>

@@ -26,7 +26,7 @@ export class TacoMade {
     }
 
     goToExtras() {
-        this.navCtrl.setRoot(ExtrasPage);
+        this.navCtrl.push(ExtrasPage);
     }
 
     constructor(private tacoService: TacoService, public navCtrl: NavController,

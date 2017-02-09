@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { ViewController, NavParams, ActionSheetController, NavController } from 'ionic-angular';
 import { TacoService } from '../../services/cart.service';
-import { TacoMade } from '../../pages/tacomade/tacomade';
-import { ExtrasPage } from '../../pages/extras/extras';
 
 
 @Component({
