@@ -26,4 +26,10 @@ export class TacoService {
     }
     return "There was an error removing that taco.";
   }
+  getTaco(index: number): Taco {
+    return TACOS[index];
+  }
+  updateTaco(newTaco: Taco, index: number) {
+    TACOS[index] = newTaco;
+  }
 }
