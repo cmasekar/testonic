@@ -131,11 +131,11 @@
 
   <ion-grid>
     <ion-row>
-      <ion-col width-33 class="test" text-right>
+      <ion-col width-33 class="vertical-center" text-right>
         <button ion-button icon-left icon-only (click)="changeTacoNumber(-1)"><ion-icon name="arrow-down"></ion-icon></button>
       </ion-col>
       <ion-col width-33><ion-input id="number-of-tacos-input" type="number" [(ngModel)]="numberOfTacos" min=1 disabled text-center></ion-input></ion-col>
-      <ion-col width-33 class="test" text-left>
+      <ion-col width-33 class="vertical-center" text-left>
         <button ion-button icon-right icon-only (click)="changeTacoNumber(1)"><ion-icon name="arrow-up"></ion-icon></button>
       </ion-col>
     </ion-row>
