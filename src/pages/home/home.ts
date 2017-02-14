@@ -1,20 +1,34 @@
-import { Component } from '@angular/core';
-import { OrderPage } from '../../pages/order/order';
-import { NavController, Platform } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { QuesoLanding } from '../../pages/quesolanding/quesolanding';
+import { NavController, MenuController, Platform, Slides } from 'ionic-angular';
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
+  @ViewChild(Slides) slides: Slides;
   isIOS() {
     return this.plt.is("ios");
   }
   
-  goToTaco() {
-    this.navCtrl.setRoot(OrderPage)
+  goToTacoLanding() {
+    this.navCtrl.setRoot(QuesoLanding)
   }
 
-  constructor(public navCtrl: NavController, public plt: Platform) {
+  openMenu() {
+   this.menuCtrl.open();
+ }
+
+ closeMenu() {
+   this.menuCtrl.close();
+ }
+
+ toggleMenu() {
+   this.menuCtrl.toggle();
+ }
+
+  constructor(public navCtrl: NavController, public plt: Platform, public menuCtrl: MenuController) {
+    menuCtrl.enable(true);
   }
 }

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ViewController, NavParams, NavController, AlertController, Platform } from 'ionic-angular';
 
 import { Taco } from '../../models/taco';
-import { TacoService } from '../../services/cart.service';
+import { TacoService } from '../../services/taco.service';
 
 @Component({
   selector: 'edittaco',

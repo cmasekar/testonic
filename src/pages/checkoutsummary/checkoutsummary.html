@@ -1,5 +1,8 @@
 <ion-header>
   <ion-navbar>
+    <button ion-button menuToggle start>
+      <ion-icon name="menu"></ion-icon>
+    </button>
     <ion-title>
       Order Summary
     </ion-title>
@@ -7,6 +10,19 @@
 </ion-header>
 
 <ion-content padding>
+  <ion-list>
+    <ion-list-header>
+      Queso
+    </ion-list-header>
+    <ion-item *ngFor="let queso of quesos">
+      {{queso.name}}
+      <br>
+      <p>{{ queso.cost | currency : "USD" :2}}</p>
+    </ion-item>
+    <ion-item text-center *ngIf="quesos.length == 0">
+      None
+    </ion-item>
+  </ion-list>
   <ion-list>
     <ion-list-header>
       Tacos
@@ -61,22 +77,30 @@
     <ion-list-header>
       Extras
     </ion-list-header>
-    <ion-item *ngFor="let extra of selectedExtras">
-      {{extra.displayName}}
+    <ion-item *ngFor="let extra of extras">
+      {{extra.name}}
       <br>
       <p>{{ extra.cost | currency : "USD" :2}}</p>
     </ion-item>
-    <ion-item text-center *ngIf="selectedExtras.length == 0">
+    <ion-item text-center *ngIf="extras.length == 0">
       None
     </ion-item>
   </ion-list>
   <ion-grid>
     <ion-row>
       <ion-col width-66>
+        Cost of queso:
+      </ion-col>
+      <ion-col text-left width-33>
+        {{quesoService.getQuesoCost() | currency : "USD" :2}}
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col width-66>
         Cost of tacos:
       </ion-col>
       <ion-col text-left width-33>
-        {{tacoService.getCartCost() | currency : "USD" :2}}
+        {{tacoService.getTacoCost() | currency : "USD" :2}}
       </ion-col>
     </ion-row>
     <ion-row>
@@ -84,7 +108,7 @@
         Cost of extras:
       </ion-col>
       <ion-col text-left width-33>
-        {{costOfExtras | currency : "USD" :2}}
+        {{extrasService.getExtrasCost() | currency : "USD" :2}}
       </ion-col>
     </ion-row>
     <ion-row *ngIf="discounts > 0">
@@ -100,7 +124,7 @@
         Subtotal:
       </ion-col>
       <ion-col text-left width-33>
-        {{tacoService.getCartCost() + costOfExtras - discounts | currency : "USD" :2}}
+        {{quesoService.getQuesoCost() + tacoService.getTacoCost() + extrasService.getExtrasCost() - discounts | currency : "USD" :2}}
       </ion-col>
     </ion-row>
     <ion-row>
@@ -108,7 +132,7 @@
         Tax:
       </ion-col>
       <ion-col text-left width-33>
-        {{(tacoService.getCartCost() + costOfExtras - discounts) * 0.065 | currency : "USD" :2}}
+        {{(quesoService.getQuesoCost() + tacoService.getTacoCost() + extrasService.getExtrasCost() - discounts) * 0.065 | currency : "USD" :2}}
       </ion-col>
     </ion-row>
     <ion-row>
@@ -116,7 +140,7 @@
         Total:
       </ion-col>
       <ion-col text-left width-33>
-        {{(tacoService.getCartCost() + costOfExtras - discounts) * 1.065 | currency : "USD" :2}}
+        {{(quesoService.getQuesoCost() + tacoService.getTacoCost() + extrasService.getExtrasCost() - discounts) * 1.065 | currency : "USD" :2}}
       </ion-col>
     </ion-row>
   </ion-grid>

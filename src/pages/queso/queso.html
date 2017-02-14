@@ -3,7 +3,7 @@
     <button ion-button menuToggle start>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Extras</ion-title>
+    <ion-title>My Queso</ion-title>
     <ion-buttons end>
       <button ion-button icon-only (click)="previewCart()">
         <ion-icon name="basket"></ion-icon>
@@ -14,19 +14,19 @@
 <ion-content padding>
   <ion-list>
     <ion-list-header>
-      Extras
+      Quesos
     </ion-list-header>
     <ion-item-group>
-      <ion-item text-wrap *ngFor="let extra of extraOptions">
+      <ion-item text-wrap *ngFor="let queso of quesoChoice">
         <ion-label>
           <h2>
-            <ion-icon text-left icon-only name="flame" color="{{setFlameColor(extra.spicy)}}" *ngIf="extra.spicy > 0"></ion-icon>
-            {{extra.name}} (+{{extra.cost}})
+            {{queso.name}} (+{{queso.cost}})
           </h2>
+          <p>{{queso.info}}</p>
         </ion-label>
-        <ion-checkbox [checked]="extra.isSelected" [(ngModel)]="extra.isSelected"></ion-checkbox>
+        <ion-checkbox [checked]="queso.isSelected" [(ngModel)]="queso.isSelected"></ion-checkbox>
       </ion-item>
     </ion-item-group>
   </ion-list>
-  <button ion-button block (click)="addExtrasToCart()">Add to cart</button>
+  <button ion-button block (click)="addQuesoToCart()">Add to cart</button>
 </ion-content>

@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle start>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Extras</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="previewCart()">
+        <ion-icon name="basket"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <ion-list>
+    <ion-list-header>
+      Extras currently in my cart
+    </ion-list-header>
+    <ion-item text-center text-wrap *ngIf="currentExtras.length == 0">
+      Hmm. There aren't any extras in your cart... Why don't you add some?
+    </ion-item>
+    <ion-item *ngFor="let extra of currentExtras">
+      <ion-thumbnail item-left text-center>
+        <img src="./assets/images/ExtrasIcon.jpg">
+        <p text-center padding-top>{{extra.cost | currency : "USD" :2}}</p>
+      </ion-thumbnail>
+      <h2>{{extra.name}}</h2>
+    </ion-item>
+  </ion-list>
+  <button ion-button block (click)="goToExtras()">Add some extras</button>
+  <ion-item text-center text-wrap>
+    Finished adding food?
+  </ion-item>
+  <button ion-button block (click)="goToCheckoutSummary()">Checkout</button>
+</ion-content>

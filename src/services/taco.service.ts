@@ -6,7 +6,7 @@ import { Taco } from '../models/taco';
 @Injectable()
 export class TacoService {
   TACOS: Taco[] = [];
-  getCartCost(): number {
+  getTacoCost(): number {
     let total = 0;
     for(let taco of this.TACOS) {
       total += taco.cost * taco.quantity;

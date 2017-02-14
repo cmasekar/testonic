@@ -1,66 +1,62 @@
 import { Component } from '@angular/core';
-import { NavController, ModalController } from 'ionic-angular';
-import { TacoService } from '../../services/cart.service';
-import { CheckoutSummary } from '../../pages/checkoutsummary/checkoutsummary';
+import { AlertController, NavController, ModalController } from 'ionic-angular';
 import { MyCart } from '../../pages/mycart/mycart';
-import { TacoMade } from '../../pages/tacomade/tacomade';
+import { ExtrasLanding } from '../../pages/extraslanding/extraslanding';
+
+import { Extra } from '../../models/extra';
+import { ExtrasService } from '../../services/extras.service';
 
 @Component({
   selector: 'extras',
   templateUrl: 'extras.html'
 })
 export class ExtrasPage {
-
   extraOptions = [
     {
-      name: "Rice (+1)",
+      name: "Rice",
       cost: 1,
       spicy: 0,
       value: "rice",
-      displayName: "Rice",
       isSelected: false
     },
     {
-      name: "Pickled Jalapenos (+1)",
+      name: "Pickled Jalapenos",
       cost: 1,
       spicy: 0,
       value: "pickled-jalapenos",
-      displayName: "Pickled Jalapenos",
       isSelected: false
     },
     {
-      name: "Sour Cream (+1)",
+      name: "Sour Cream",
       cost: 1,
       spicy: 0,
       value: "sour-cream",
-      displayName: "Sour Cream",
       isSelected: false
     },
     {
-      name: "Black Beans (+1.5)",
+      name: "Black Beans",
       cost: 1.5,
       spicy: 0,
       value: "black-beans",
-      displayName: "Black Beans",
       isSelected: false
     },
     {
-      name: "Traditional Guac (+2)",
+      name: "Traditional Guac",
       cost: 2,
       spicy: 0,
       value: "traditional-guac",
-      displayName: "Traditional Guac",
       isSelected: false
     },
     {
-      name: "Bacon Refried Beans (+1.5)",
+      name: "Bacon Refried Beans",
       cost: 1.5,
       spicy: 1,
       value: "bacon-refried-beans",
-      displayName: "Bacon Refried Beans",
       isSelected: false
     }
   ];
+
+  costOfExtras = 0;
 
   setFlameColor(level: number) {
     switch (level) {
@@ -79,22 +75,46 @@ export class ExtrasPage {
     }
   }
 
-  goToCheckout() {
-    let selectedOptions = this.extraOptions.filter(o => o.isSelected);
-    this.navCtrl.push(CheckoutSummary, {selectedOptions: selectedOptions})
-  }
-
   previewCart() {
-    let modal = this.modalCtrl.create(MyCart, this.tacoService.getTacos());
-    modal.onDidDismiss(shouldGo => {
-            if(shouldGo) {
-                this.navCtrl.setRoot(TacoMade);
-                this.navCtrl.push(ExtrasPage);
-            }
-        })
+    let modal = this.modalCtrl.create(MyCart);
     modal.present();
   }
-  constructor(public navCtrl: NavController, public tacoService: TacoService, private modalCtrl: ModalController) {
-      
+
+  addExtrasToCart() {
+    let extrasSelected = this.extraOptions.filter(extra => extra.isSelected);
+    let groomedExtrasList = extrasSelected.map(function(element) {
+      return {
+        name: element.name,
+        cost: element.cost
+      };
+    });
+    for(let i = 0; i < groomedExtrasList.length; i++) {
+      let extra = new Extra(groomedExtrasList[i].name, groomedExtrasList[i].cost);
+      let response = this.extrasService.addExtra(extra);
+    }
+    let alert = this.alertControl.create({
+      title: 'New Extras',
+      subTitle: "You've added " + groomedExtrasList.length + " item(s) to your cart",
+      message: "",
+      buttons: ['Close']
+    });
+    alert.present();
+    this.navCtrl.setRoot(ExtrasLanding);
+  }
+
+  setQuesoOptions(currentCartExtras: Array<Extra>) {
+    for(let i = 0; i < currentCartExtras.length; i++) {
+      for(let j = 0; j < this.extraOptions.length; j++) {
+        if(currentCartExtras[i].name == this.extraOptions[j].name) {
+          this.extraOptions[j].isSelected = true;
+        }
+      }
+    }
+  }
+
+  constructor(private alertControl: AlertController, public navCtrl: NavController, 
+              public modalCtrl: ModalController, private extrasService: ExtrasService) {
+    let currentCartExtras = extrasService.getExtras();
+    this.setQuesoOptions(currentCartExtras);
   }
 }

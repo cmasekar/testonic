@@ -1,11 +1,24 @@
 <ion-header [ngClass]="{'header-padding': isIOS() }">
   <ion-navbar>
+    <button ion-button menuToggle start>
+      <ion-icon name="menu"></ion-icon>
+    </button>
     <ion-title>Home</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding class="no-scroll">
-  <img src="./build/images/CondadoLogo.png"/>
-  <!--<img src="../../assets/images/CondadoLogo.png"/>-->
-  <button ion-button block (click)="goToTaco()">Let's make tacos!</button>
+  <img src="./assets/images/CondadoLogo.png"/>
+  <ion-slides [autoplay]="5000" [loop]="true" [effect]="'fade'" [speed]="1300" style="max-height:250px">
+    <ion-slide>
+      <img src="./assets/images/Tacos.png"/>
+    </ion-slide>
+    <ion-slide>
+      <img src="./assets/images/Queso.png"/>
+    </ion-slide>
+    <ion-slide>
+      <img src="./assets/images/MoreTacos.png"/>
+    </ion-slide>
+  </ion-slides>
+  <button ion-button block (click)="goToTacoLanding()">Let's make tacos!</button>
 </ion-content>

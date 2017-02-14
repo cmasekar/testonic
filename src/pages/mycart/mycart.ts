@@ -2,7 +2,9 @@ import { Component } from '@angular/core';
 import { ViewController, NavParams, ActionSheetController, NavController } from 'ionic-angular';
 import { EditTaco } from '../../pages/edittaco/edittaco';
 
-import { TacoService } from '../../services/cart.service';
+import { QuesoService } from '../../services/queso.service';
+import { TacoService } from '../../services/taco.service';
+import { ExtrasService } from '../../services/extras.service';
 
 
 @Component({
@@ -10,16 +12,36 @@ import { TacoService } from '../../services/cart.service';
   templateUrl: 'mycart.html'
 })
 export class MyCart {
-    cart;
+    quesos;
+    tacos;
+    extras;
 
     dismiss() {
         this.viewCtrl.dismiss(false);
     }
-
-    goToExtras() {
-        this.viewCtrl.dismiss(true);
-    }
     
+    showQuesoOptions(index: number) {
+        let actionSheet = this.actionSheetCtrl.create({
+        title: 'Queso Options',
+        buttons: [
+            {
+            text: 'Remove from cart',
+            role: 'destructive',
+            handler: () => {
+                this.quesoService.removeQueso(index);
+                this.refreshCart();
+            }
+            },{
+            text: 'Cancel',
+            role: 'cancel',
+            handler: () => {
+            }
+            }
+        ]
+        });
+        actionSheet.present();
+    }
+
     showTacoOptions(index: number) {
         let actionSheet = this.actionSheetCtrl.create({
         title: 'Taco Options',
@@ -34,7 +56,7 @@ export class MyCart {
             },{
             text: 'Duplicate',
             handler: () => {
-                this.tacoService.addTaco(this.cart[index]);
+                this.tacoService.addTaco(this.tacos[index]);
                 this.refreshCart();
             }
             },{
@@ -46,7 +68,28 @@ export class MyCart {
             text: 'Cancel',
             role: 'cancel',
             handler: () => {
-                console.log('Cancel clicked');
+            }
+            }
+        ]
+        });
+        actionSheet.present();
+    }
+
+    showExtrasOptions(index: number) {
+        let actionSheet = this.actionSheetCtrl.create({
+        title: 'Extras Options',
+        buttons: [
+            {
+            text: 'Remove from cart',
+            role: 'destructive',
+            handler: () => {
+                this.extrasService.removeExtra(index);
+                this.refreshCart();
+            }
+            },{
+            text: 'Cancel',
+            role: 'cancel',
+            handler: () => {
             }
             }
         ]
@@ -55,15 +98,16 @@ export class MyCart {
     }
 
     refreshCart() {
-        this.cart = this.tacoService.getTacos();
+        this.quesos = this.quesoService.getQuesos();
+        this.tacos = this.tacoService.getTacos();
+        this.extras = this.extrasService.getExtras();
     }
 
-    editTaco(index: number) {
-        this.navCtrl.setRoot(EditTaco, {index: index});
-    }
-
-    constructor(params: NavParams, public viewCtrl: ViewController, private tacoService: TacoService,
+    constructor(params: NavParams, public viewCtrl: ViewController, private quesoService: QuesoService,
+                private tacoService: TacoService, private extrasService: ExtrasService,
                 public actionSheetCtrl: ActionSheetController, public navCtrl: NavController) {
-        this.cart = params.data;
+        this.quesos = quesoService.getQuesos();
+        this.tacos = tacoService.getTacos();
+        this.extras = extrasService.getExtras();
     }
 }

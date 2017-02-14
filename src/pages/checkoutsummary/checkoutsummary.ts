@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController } from 'ionic-angular';
-import { TacoService } from '../../services/cart.service';
+import { QuesoService } from '../../services/queso.service';
+import { TacoService } from '../../services/taco.service';
+import { ExtrasService } from '../../services/extras.service';
 import { HomePage } from '../../pages/home/home';
 
 
@@ -9,25 +11,27 @@ import { HomePage } from '../../pages/home/home';
   templateUrl: 'checkoutsummary.html'
 })
 export class CheckoutSummary {
-  selectedExtras;
-  costOfExtras;
-  discounts;
+  quesos;
   tacos;
+  extras;
+  discounts;
 
-  constructor(public navCtrl: NavController, public params: NavParams, public tacoService: TacoService,
-              public alertControl: AlertController) {
-    this.selectedExtras = params.data.selectedOptions;
+  constructor(public navCtrl: NavController, public quesoService: QuesoService, public tacoService: TacoService,
+              public extrasService: ExtrasService, public alertControl: AlertController) {
+    this.quesos = quesoService.getQuesos();
     this.tacos = tacoService.getTacos();
+    this.extras = extrasService.getExtras();
+
+    this.setupDiscountFields();
+    this.calculateTacoDiscounts();
+  }
+
+  setupDiscountFields() {
     this.discounts = 0;
     for(let i = 0; i < this.tacos.length; i++) {
       this.tacos[i]["icon"] = 'ios-add-circle-outline';
       this.tacos[i]["showDetails"] = false;
     }
-    this.costOfExtras = 0;
-    for(let i = 0; i < this.selectedExtras.length; i++) {
-      this.costOfExtras += this.selectedExtras[i].cost;
-    }
-    this.calculateTacoDiscounts();
   }
 
   calculateTacoDiscounts() {
@@ -55,10 +59,12 @@ export class CheckoutSummary {
   }
 
   goToFinish() {
+    this.quesoService.removeAllQuesos();
     this.tacoService.removeAllTacos();
+    this.extrasService.removeAllExtras();
     let alert = this.alertControl.create({
       title: 'Congratulations!',
-      subTitle: "Your tacos are on their way to becoming reality",
+      subTitle: "Your food is on its way to becoming reality",
       buttons: ['Close']
     });
     alert.present();

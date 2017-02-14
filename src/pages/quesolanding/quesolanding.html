@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle start>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Queso</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="previewCart()">
+        <ion-icon name="basket"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <ion-list>
+    <ion-list-header>
+      Queso currently in my cart
+    </ion-list-header>
+    <ion-item text-center text-wrap *ngIf="currentQuesos.length == 0">
+      Hmm. There isn't any queso in your cart... Why don't you add some?
+    </ion-item>
+    <ion-item *ngFor="let queso of currentQuesos">
+      <ion-thumbnail item-left text-center>
+        <img src="./assets/images/QuesoIcon.png">
+        <p text-center padding-top>{{queso.cost | currency : "USD" :2}}</p>
+      </ion-thumbnail>
+      <h2>{{queso.name}}</h2>
+    </ion-item>
+  </ion-list>
+  <button ion-button block (click)="goToQueso()">Add some queso</button>
+  <ion-item text-center text-wrap>
+    Ready to move on?
+  </ion-item>
+  <button ion-button block (click)="goToTacoLanding()">Continue</button>
+</ion-content>

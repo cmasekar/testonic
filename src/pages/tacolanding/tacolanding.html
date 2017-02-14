@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle start>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Tacos</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="previewCart()">
+        <ion-icon name="basket"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <ion-list>
+    <ion-list-header>
+      Tacos currently in my cart
+    </ion-list-header>
+    <ion-item text-center text-wrap *ngIf="currentTacos.length == 0">
+      Hmm. There aren't any tacos in your cart... Why don't you add some?
+    </ion-item>
+    <ion-item *ngFor="let taco of currentTacos">
+      <ion-thumbnail item-left text-center>
+        <img src="./assets/images/TacoIcon.png">
+        <p text-center padding-top>{{taco.cost * taco.quantity | currency : "USD" :2}}</p>
+      </ion-thumbnail>
+      <h2>{{taco.tortilla}}</h2>
+      <p *ngIf="taco.tortilla == 'Tortilla Fritos'">
+        <span *ngIf="taco.tortillaOptions.rice">Rice, </span>
+        <span *ngIf="!taco.tortillaOptions.rice">No rice, </span>
+        <span *ngIf="taco.tortillaOptions.beans">beans</span>
+        <span *ngIf="!taco.tortillaOptions.beans">no beans</span>
+      </p>
+      <p>{{taco.protein.join(', ')}}</p>
+      <p>{{taco.toppings.join(', ')}}</p>
+      <p>{{taco.cheese.join(', ')}}</p>
+      <p>{{taco.salsa.join(', ')}}</p>
+      <p>{{taco.sauces.join(', ')}}</p>
+      <br>
+      <p>{{ taco.cost | currency : "USD" :2}} x {{taco.quantity}} taco(s)</p>
+    </ion-item>
+  </ion-list>
+  <button ion-button block (click)="goToTaco()">Add some tacos</button>
+  <ion-item text-center text-wrap>
+    Finished adding tacos?
+  </ion-item>
+  <button ion-button block (click)="goToExtrasLanding()">Continue</button>
+</ion-content>

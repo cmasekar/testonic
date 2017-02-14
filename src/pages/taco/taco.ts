@@ -1,17 +1,16 @@
 import { Component } from '@angular/core';
 import { AlertController, NavController, ModalController } from 'ionic-angular';
 import { MyCart } from '../../pages/mycart/mycart';
-import { TacoMade } from '../../pages/tacomade/tacomade';
-import { ExtrasPage } from '../../pages/extras/extras';
+import { TacoLanding } from '../../pages/tacolanding/tacolanding';
 
 import { Taco } from '../../models/taco';
-import { TacoService } from '../../services/cart.service';
+import { TacoService } from '../../services/taco.service';
 
 @Component({
-  selector: 'page-order',
-  templateUrl: 'order.html'
+  selector: 'taco',
+  templateUrl: 'taco.html'
 })
-export class OrderPage {
+export class TacoPage {
   tortillaChoice = [
     {
       name: "Corn",
@@ -347,12 +346,6 @@ export class OrderPage {
 
   previewCart() {
     let modal = this.modalCtrl.create(MyCart, this.tacoService.getTacos());
-    modal.onDidDismiss(shouldGo => {
-            if(shouldGo) {
-                this.navCtrl.setRoot(TacoMade);
-                this.navCtrl.push(ExtrasPage);
-            }
-        })
     modal.present();
   }
 
@@ -491,7 +484,7 @@ export class OrderPage {
       buttons: ['Close']
     });
     alert.present();
-    this.navCtrl.setRoot(TacoMade);
+    this.navCtrl.setRoot(TacoLanding);
   }
 
   constructor(private alertControl: AlertController, public navCtrl: NavController, 
