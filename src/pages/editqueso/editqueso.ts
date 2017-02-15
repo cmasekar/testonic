@@ -98,16 +98,19 @@ export class EditQueso {
   }
 
   submitEdit() {
-    let quesosSelected = this.quesoChoice.filter(queso => queso.isSelected);
-    let groomedQuesoList = quesosSelected.map(function(element) {
-      return {
-        name: element.name,
-        cost: element.cost,
-        isSharing: element.isSharing,
-        peopleSharing: element.peopleSharing
-      };
-    });
-    this.currentQueso = new Queso(groomedQuesoList[0].name, groomedQuesoList[0].cost, groomedQuesoList[0].isSharing, groomedQuesoList[0].peopleSharing);
+    let quesoArray = this.quesoChoice.filter(queso => queso.isSelected);
+        if(quesoArray.length == 0) {
+      let error = this.alertControl.create({
+        title: 'Uh oh!',
+        subTitle: "Looks like you didn't select a queso.",
+        message: "Select a type of queso please.",
+        buttons: ['Close']
+      });
+      error.present();
+      return;
+    }
+    let selectedQueso = quesoArray[0];
+    this.currentQueso = new Queso(selectedQueso.name, selectedQueso.cost, selectedQueso.isSharing, selectedQueso.peopleSharing);
     this.quesoService.updateQueso(this.currentQueso, this.quesoIndex);
   }
 

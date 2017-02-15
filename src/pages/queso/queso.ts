@@ -87,22 +87,24 @@ export class QuesoPage {
   }
 
   addQuesoToCart() {
-    let quesosSelected = this.quesoChoice.filter(queso => queso.isSelected);
-    let groomedQuesoList = quesosSelected.map(function(element) {
-      return {
-        name: element.name,
-        cost: element.cost,
-        isSharing: element.isSharing,
-        peopleSharing: element.peopleSharing
-      };
-    });
-    for(let i = 0; i < groomedQuesoList.length; i++) {
-      let queso = new Queso(groomedQuesoList[i].name, groomedQuesoList[i].cost, groomedQuesoList[i].isSharing, groomedQuesoList[i].peopleSharing);
-      this.quesoService.addQueso(queso);
+    let quesoArray = this.quesoChoice.filter(t => t.isSelected);
+    if(quesoArray.length == 0) {
+      let error = this.alertControl.create({
+        title: 'Uh oh!',
+        subTitle: "Looks like you didn't select a queso.",
+        message: "Select a type of queso please.",
+        buttons: ['Close']
+      });
+      error.present();
+      return;
     }
+    let selectedQueso = quesoArray[0];
+    let queso = new Queso(selectedQueso.name, selectedQueso.cost, selectedQueso.isSharing, selectedQueso.peopleSharing);
+    this.quesoService.addQueso(queso);
+
     let alert = this.alertControl.create({
       title: 'New Queso',
-      subTitle: "You've added " + groomedQuesoList.length + " item(s) to your cart",
+      subTitle: "Queso added to cart",
       message: "",
       buttons: ['Close']
     });
