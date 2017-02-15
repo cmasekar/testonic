@@ -71,7 +71,7 @@ export class QuesoPage {
     });
     for(let i = 0; i < groomedQuesoList.length; i++) {
       let queso = new Queso(groomedQuesoList[i].name, groomedQuesoList[i].cost);
-      let response = this.quesoService.addQueso(queso);
+      this.quesoService.addQueso(queso);
     }
     let alert = this.alertControl.create({
       title: 'New Queso',

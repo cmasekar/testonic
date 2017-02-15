@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { QuesoLanding } from '../../pages/quesolanding/quesolanding';
-import { NavController, MenuController, Platform, Slides } from 'ionic-angular';
+import { NavController, MenuController, Platform, Slides, NavParams } from 'ionic-angular';
 
 @Component({
   selector: 'page-home',
@@ -8,9 +8,7 @@ import { NavController, MenuController, Platform, Slides } from 'ionic-angular';
 })
 export class HomePage {
   @ViewChild(Slides) slides: Slides;
-  isIOS() {
-    return this.plt.is("ios");
-  }
+  padding;
   
   goToTacoLanding() {
     this.navCtrl.setRoot(QuesoLanding)
@@ -18,17 +16,27 @@ export class HomePage {
 
   openMenu() {
    this.menuCtrl.open();
- }
+  }
 
- closeMenu() {
-   this.menuCtrl.close();
- }
+  closeMenu() {
+    this.menuCtrl.close();
+  }
 
- toggleMenu() {
-   this.menuCtrl.toggle();
- }
+  toggleMenu() {
+    this.menuCtrl.toggle();
+  }
 
-  constructor(public navCtrl: NavController, public plt: Platform, public menuCtrl: MenuController) {
+  setPadding() {
+    if(this.plt.is("ios")) {
+        this.padding = true;
+      }
+  }
+
+  constructor(public navCtrl: NavController, public plt: Platform, public menuCtrl: MenuController, public params: NavParams) {
+    this.padding = false;
+    if(params.data.addPadding){
+      this.setPadding();
+    }
     menuCtrl.enable(true);
   }
 }

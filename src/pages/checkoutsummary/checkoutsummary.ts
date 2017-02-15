@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController } from 'ionic-angular';
+import { NavController, AlertController } from 'ionic-angular';
 import { QuesoService } from '../../services/queso.service';
 import { TacoService } from '../../services/taco.service';
 import { ExtrasService } from '../../services/extras.service';

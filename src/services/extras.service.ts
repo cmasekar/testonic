@@ -16,22 +16,13 @@ export class ExtrasService {
   getExtras(): Extra[] {
     return this.EXTRAS;
   }
-  addExtra(newExtra: Extra): string {
+  addExtra(newExtra: Extra) {
     this.EXTRAS.push(newExtra);
-    return "Item added to cart";
   }
-  removeExtra(index: number): string {
+  removeExtra(index: number) {
     if(index < this.EXTRAS.length) {
       this.EXTRAS.splice(index, 1);
-      return "Item successfully removed.";
     }
-    return "There was an error removing that item.";
-  }
-  getExtra(index: number): Extra {
-    return this.EXTRAS[index];
-  }
-  updateExtra(newExtra: Extra, index: number) {
-    this.EXTRAS[index] = newExtra;
   }
   removeAllExtras() {
     this.EXTRAS = [];

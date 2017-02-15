@@ -16,22 +16,13 @@ export class QuesoService {
   getQuesos(): Queso[] {
     return this.QUESOS;
   }
-  addQueso(newQueso: Queso): string {
+  addQueso(newQueso: Queso) {
     this.QUESOS.push(newQueso);
-    return "Queso added to cart";
   }
-  removeQueso(index: number): string {
+  removeQueso(index: number) {
     if(index < this.QUESOS.length) {
       this.QUESOS.splice(index, 1);
-      return "Queso successfully removed.";
     }
-    return "There was an error removing that queso.";
-  }
-  getQueso(index: number): Queso {
-    return this.QUESOS[index];
-  }
-  updateQueso(newQueso: Queso, index: number) {
-    this.QUESOS[index] = newQueso;
   }
   removeAllQuesos() {
     this.QUESOS = [];

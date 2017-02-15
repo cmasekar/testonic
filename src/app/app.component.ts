@@ -16,9 +16,12 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
   rootPage = HomePage;
   pages: Array<{title: string, component: any}>;
+  
+    isIOS() {
+      return this.platform.is("ios");
+  }
 
-
-  constructor(platform: Platform) {
+  constructor(public platform: Platform) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.

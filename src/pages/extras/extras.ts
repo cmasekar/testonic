@@ -90,7 +90,7 @@ export class ExtrasPage {
     });
     for(let i = 0; i < groomedExtrasList.length; i++) {
       let extra = new Extra(groomedExtrasList[i].name, groomedExtrasList[i].cost);
-      let response = this.extrasService.addExtra(extra);
+      this.extrasService.addExtra(extra);
     }
     let alert = this.alertControl.create({
       title: 'New Extras',
