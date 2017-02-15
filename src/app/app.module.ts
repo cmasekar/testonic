@@ -8,6 +8,7 @@ import { ExtrasPage } from '../pages/extras/extras'
 import { MyCart } from '../pages/mycart/mycart';
 import { CheckoutSummary } from '../pages/checkoutsummary/checkoutsummary';
 import { EditTaco } from '../pages/edittaco/edittaco';
+import { EditQueso } from '../pages/editqueso/editqueso';
 import { QuesoLanding } from '../pages/quesolanding/quesolanding';
 import { TacoLanding } from '../pages/tacolanding/tacolanding';
 import { ExtrasLanding } from '../pages/extraslanding/extraslanding';
@@ -26,6 +27,7 @@ import { ExtrasService } from '../services/extras.service';
     MyCart,
     CheckoutSummary,
     EditTaco,
+    EditQueso,
     QuesoLanding,
     TacoLanding,
     ExtrasLanding
@@ -44,6 +46,7 @@ import { ExtrasService } from '../services/extras.service';
     MyCart,
     CheckoutSummary,
     EditTaco,
+    EditQueso,
     QuesoLanding,
     TacoLanding,
     ExtrasLanding

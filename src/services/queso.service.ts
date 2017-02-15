@@ -29,6 +29,12 @@ export class QuesoService {
       this.QUESOS.splice(index, 1);
     }
   }
+  getQueso(index: number): Queso {
+    return this.QUESOS[index];
+  }
+  updateQueso(newQueso: Queso, index: number) {
+    this.QUESOS[index] = newQueso;
+  }
   removeAllQuesos() {
     this.QUESOS = [];
   }

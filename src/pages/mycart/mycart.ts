@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ViewController, NavParams, ActionSheetController, NavController } from 'ionic-angular';
 import { EditTaco } from '../../pages/edittaco/edittaco';
+import { EditQueso } from '../../pages/editqueso/editqueso';
 
 import { QuesoService } from '../../services/queso.service';
 import { TacoService } from '../../services/taco.service';
@@ -30,6 +31,11 @@ export class MyCart {
             handler: () => {
                 this.quesoService.removeQueso(index);
                 this.refreshCart();
+            }
+            },{
+            text: 'Edit',
+            handler: () => {
+                this.navCtrl.push(EditQueso, {index: index});
             }
             },{
             text: 'Cancel',
