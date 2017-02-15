@@ -29,9 +29,11 @@
       </button>
       <ion-thumbnail item-left text-center>
         <img src="./assets/images/QuesoIcon.png">
-        <p text-center padding-top>{{queso.cost | currency : "USD" :2}}</p>
+        <p *ngIf="queso.isSharing" text-center padding-top>{{queso.cost / queso.peopleSharing | currency : "USD" :2}}</p>
+        <p *ngIf="!queso.isSharing" text-center padding-top>{{queso.cost | currency : "USD" :2}}</p>
       </ion-thumbnail>
       <h2>{{queso.name}}</h2>
+      <p *ngIf="queso.isSharing && queso.peopleSharing > 1">{{queso.cost | currency : "USD" :2}} split {{queso.peopleSharing}} ways</p>
     </ion-item>
     <ion-item text-center *ngIf="quesos.length == 0">
       There isn't any queso in your cart!

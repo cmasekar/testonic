@@ -28,6 +28,7 @@ $colors: (
   secondary:  #32db64,
   danger:     #f53d3d,
   light:      #f4f4f4,
+  white:    #fff,
   dark:       #222,
   spicy-1:    #E6EA20,
   spicy-2:    #FFF000,
@@ -112,4 +113,12 @@ $cordova-ios-statusbar-padding: 20px;
 
 .header-padding {
   padding-top: $cordova-ios-statusbar-padding;
+}
+
+ion-list.compact-list {
+  margin: -1px 0 0 0;
+}
+
+.chip-input {
+  margin: 0 10px;
 }

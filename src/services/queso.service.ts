@@ -9,7 +9,12 @@ export class QuesoService {
   getQuesoCost(): number {
     let total = 0;
     for(let queso of this.QUESOS) {
-      total += queso.cost;
+      if(queso.isSharing) {
+        total += queso.cost / queso.peopleSharing;
+      }
+      else {
+        total += queso.cost;
+      }
     }
     return total;
   }

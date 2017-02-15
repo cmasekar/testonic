@@ -55,9 +55,7 @@ export class ExtrasPage {
       isSelected: false
     }
   ];
-
-  costOfExtras = 0;
-
+  
   setFlameColor(level: number) {
     switch (level) {
       case 1:
@@ -102,19 +100,7 @@ export class ExtrasPage {
     this.navCtrl.setRoot(ExtrasLanding);
   }
 
-  setQuesoOptions(currentCartExtras: Array<Extra>) {
-    for(let i = 0; i < currentCartExtras.length; i++) {
-      for(let j = 0; j < this.extraOptions.length; j++) {
-        if(currentCartExtras[i].name == this.extraOptions[j].name) {
-          this.extraOptions[j].isSelected = true;
-        }
-      }
-    }
-  }
-
   constructor(private alertControl: AlertController, public navCtrl: NavController, 
               public modalCtrl: ModalController, private extrasService: ExtrasService) {
-    let currentCartExtras = extrasService.getExtras();
-    this.setQuesoOptions(currentCartExtras);
   }
 }

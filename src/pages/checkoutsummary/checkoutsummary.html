@@ -15,9 +15,15 @@
       Queso
     </ion-list-header>
     <ion-item *ngFor="let queso of quesos">
-      {{queso.name}}
-      <br>
-      <p>{{ queso.cost | currency : "USD" :2}}</p>
+      <div>
+        <h2>{{queso.name}}</h2>
+        <div *ngIf="queso.isSharing" item-right>{{queso.cost / queso.peopleSharing | currency : "USD" :2}}</div>
+        <div *ngIf="!queso.isSharing" item-right>{{queso.cost | currency : "USD" :2}}</div>
+      </div>
+      <div *ngIf="queso.isSharing && queso.peopleSharing > 1">
+        <h5>Details</h5>
+        <p padding-left>{{queso.cost | currency : "USD" :2}} split {{queso.peopleSharing}} ways</p>
+      </div>
     </ion-item>
     <ion-item text-center *ngIf="quesos.length == 0">
       None

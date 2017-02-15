@@ -11,22 +11,43 @@
     </ion-buttons>
   </ion-navbar>
 </ion-header>
-<ion-content padding>
-  <ion-list>
+<ion-content>
+  <ion-list inset>
     <ion-list-header>
       Quesos
     </ion-list-header>
     <ion-item-group>
-      <ion-item text-wrap *ngFor="let queso of quesoChoice">
-        <ion-label>
-          <h2>
-            {{queso.name}} (+{{queso.cost}})
-          </h2>
-          <p>{{queso.info}}</p>
-        </ion-label>
-        <ion-checkbox [checked]="queso.isSelected" [(ngModel)]="queso.isSelected"></ion-checkbox>
-      </ion-item>
+      <ion-list class="compact-list" *ngFor="let queso of quesoChoice; let i = index">
+        <ion-item text-wrap>
+          <ion-label>
+            <h2>
+              {{queso.name}} (+{{queso.cost}})
+            </h2>
+            <p>{{queso.info}}</p>
+          </ion-label>
+          <ion-checkbox [checked]="queso.isSelected" [(ngModel)]="queso.isSelected"></ion-checkbox>
+        </ion-item>
+        <ion-item *ngIf="queso.isSelected" margin-left>
+          <ion-label style="white-space: normal">
+            Sharing with others?
+          </ion-label>
+          <ion-label text-right>
+            <ion-chip *ngIf="queso.isSharing" color="white">
+              <button ion-button (click)="changePeopleNumber(i, -1)">
+                <ion-icon name="arrow-down"></ion-icon>
+              </button>
+              <span class="chip-input">{{queso.peopleSharing}}</span>
+              <button ion-button (click)="changePeopleNumber(i, 1)">
+                <ion-icon name="arrow-up"></ion-icon>
+              </button>
+            </ion-chip>
+          </ion-label>
+          <ion-checkbox [checked]="queso.isSharing" [(ngModel)]="queso.isSharing"></ion-checkbox>
+        </ion-item>
+      </ion-list>
     </ion-item-group>
   </ion-list>
-  <button ion-button block (click)="addQuesoToCart()">Add to cart</button>
+  <div padding-horizontal>
+    <button ion-button block (click)="addQuesoToCart()">Add to cart</button>
+  </div>
 </ion-content>

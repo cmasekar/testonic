@@ -17,6 +17,8 @@ export class QuesoPage {
       info: "",
       spicy: 0,
       cost: 6,
+      isSharing: false,
+      peopleSharing: 1,
       isSelected: false
     },
     {
@@ -24,6 +26,8 @@ export class QuesoPage {
       info: "Corn, spices",
       spicy: 0,
       cost: 6,
+      isSharing: false,
+      peopleSharing: 1,
       isSelected: false
     },
     {
@@ -31,6 +35,8 @@ export class QuesoPage {
       info: "",
       spicy: 0,
       cost: 8,
+      isSharing: false,
+      peopleSharing: 1,
       isSelected: false
     },
     {
@@ -38,6 +44,8 @@ export class QuesoPage {
       info: "",
       spicy: 0,
       cost: 6,
+      isSharing: false,
+      peopleSharing: 1,
       isSelected: false
     },
     {
@@ -45,6 +53,8 @@ export class QuesoPage {
       info: "Jalapenos, habanero, onion",
       spicy: 0,
       cost: 7,
+      isSharing: false,
+      peopleSharing: 1,
       isSelected: false
     },
     {
@@ -52,6 +62,8 @@ export class QuesoPage {
       info: "Chicken, black beans, onions, dirty sauce",
       spicy: 0,
       cost: 8,
+      isSharing: false,
+      peopleSharing: 1,
       isSelected: false
     }
   ];
@@ -66,11 +78,13 @@ export class QuesoPage {
     let groomedQuesoList = quesosSelected.map(function(element) {
       return {
         name: element.name,
-        cost: element.cost
+        cost: element.cost,
+        isSharing: element.isSharing,
+        peopleSharing: element.peopleSharing
       };
     });
     for(let i = 0; i < groomedQuesoList.length; i++) {
-      let queso = new Queso(groomedQuesoList[i].name, groomedQuesoList[i].cost);
+      let queso = new Queso(groomedQuesoList[i].name, groomedQuesoList[i].cost, groomedQuesoList[i].isSharing, groomedQuesoList[i].peopleSharing);
       this.quesoService.addQueso(queso);
     }
     let alert = this.alertControl.create({
@@ -83,19 +97,13 @@ export class QuesoPage {
     this.navCtrl.setRoot(QuesoLanding);
   }
 
-  setQuesoOptions(currentCartQueso: Array<Queso>) {
-    for(let i = 0; i < currentCartQueso.length; i++) {
-      for(let j = 0; j < this.quesoChoice.length; j++) {
-        if(currentCartQueso[i].name == this.quesoChoice[j].name) {
-          this.quesoChoice[j].isSelected = true;
-        }
-      }
+  changePeopleNumber(index: number, change: number) {
+    if(this.quesoChoice[index].peopleSharing != 1 || change >= 0) {
+      this.quesoChoice[index].peopleSharing += change;
     }
   }
 
   constructor(private alertControl: AlertController, public navCtrl: NavController, 
               public modalCtrl: ModalController, private quesoService: QuesoService) {
-    let currentCartQueso = quesoService.getQuesos();
-    this.setQuesoOptions(currentCartQueso);
   }
 }
